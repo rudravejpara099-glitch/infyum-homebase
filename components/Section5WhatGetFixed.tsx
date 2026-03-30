@@ -2,101 +2,96 @@
 
 import { motion } from "framer-motion";
 import { copy } from "@/content/copy";
+import { reveal, fadeUp, staggerContainerFast } from "@/lib/animations";
 
 export default function Section5WhatGetFixed() {
   const { whatGetFixed } = copy;
 
   return (
-    <section
-      className="py-28 md:py-36"
-      style={{ backgroundColor: "var(--color-bg-base)" }}
-    >
+    <section className="py-28 md:py-36" style={{ backgroundColor: "var(--color-bg-base)" }}>
       <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={staggerContainerFast}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
           className="mb-14"
         >
-          <p
-            className="text-xs font-semibold tracking-[0.16em] uppercase mb-5"
+          <motion.p
+            variants={fadeUp}
+            className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-5"
             style={{ color: "var(--color-brand-primary)" }}
           >
             Depth of the work
-          </p>
-          <h2
-            className="text-3xl md:text-5xl lg:text-[3.25rem] max-w-3xl mb-8"
+          </motion.p>
+          <motion.h2
+            variants={reveal}
+            className="text-[2.25rem] md:text-[2.75rem] lg:text-[3.5rem] max-w-3xl mb-8"
             style={{
               fontFamily: "var(--font-display)",
               color: "var(--color-text-primary)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.02em",
-            }}
+              lineHeight: 1.06,
+              letterSpacing: "-0.025em",
+              textWrap: "balance",
+            } as React.CSSProperties}
           >
             {whatGetFixed.headline}
-          </h2>
+          </motion.h2>
           <div className="flex flex-col gap-4 max-w-2xl">
             {[whatGetFixed.intro, whatGetFixed.body].map((para, i) => (
-              <p
+              <motion.p
                 key={i}
-                className="text-base md:text-lg leading-[1.8]"
-                style={{ color: "var(--color-text-secondary)" }}
+                variants={fadeUp}
+                className="text-[0.9375rem] md:text-base"
+                style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
               >
                 {para}
-              </p>
+              </motion.p>
             ))}
-            <p
+            <motion.p
+              variants={fadeUp}
               className="text-base font-semibold"
               style={{ color: "var(--color-text-primary)" }}
             >
               {whatGetFixed.executionLine}
-            </p>
+            </motion.p>
           </div>
         </motion.div>
 
-        {/* Improvement table */}
+        {/* Table */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="rounded-2xl overflow-hidden mb-14"
+          className="rounded-[var(--radius-card)] overflow-hidden mb-14"
           style={{ border: "1px solid var(--color-border-subtle)" }}
         >
           <div
-            className="px-8 py-5 flex items-center"
+            className="px-8 py-5"
             style={{
               backgroundColor: "var(--color-bg-elevated)",
               borderBottom: "1px solid var(--color-border-subtle)",
             }}
           >
             <p
-              className="text-xs font-semibold tracking-[0.16em] uppercase"
+              className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase"
               style={{ color: "var(--color-text-muted)" }}
             >
               {whatGetFixed.listLabel}
             </p>
           </div>
           {whatGetFixed.items.map((item, i) => (
-            <div
+            <motion.div
               key={i}
-              className="flex items-start gap-6 px-8 py-6 transition-colors duration-200"
+              className="flex items-start gap-6 px-8 py-6"
               style={{
                 backgroundColor: "var(--color-bg-surface)",
-                borderBottom:
-                  i < whatGetFixed.items.length - 1
-                    ? "1px solid var(--color-border-subtle)"
-                    : "none",
+                borderBottom: i < whatGetFixed.items.length - 1 ? "1px solid var(--color-border-subtle)" : "none",
               }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLDivElement).style.backgroundColor =
-                  "var(--color-bg-elevated)")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLDivElement).style.backgroundColor =
-                  "var(--color-bg-surface)")
-              }
+              whileHover={{ backgroundColor: "var(--color-bg-elevated)" }}
+              transition={{ duration: 0.15 }}
             >
               <span
                 className="text-sm font-semibold shrink-0 w-36"
@@ -105,26 +100,26 @@ export default function Section5WhatGetFixed() {
                 {item.label}
               </span>
               <span
-                className="text-sm leading-[1.75]"
-                style={{ color: "var(--color-text-secondary)" }}
+                className="text-sm"
+                style={{ color: "var(--color-text-secondary)", lineHeight: 1.75 }}
               >
                 — {item.desc}
               </span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
           className="text-2xl md:text-3xl max-w-2xl"
           style={{
             fontFamily: "var(--font-display)",
             color: "var(--color-text-primary)",
             lineHeight: 1.3,
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.015em",
           }}
         >
           {whatGetFixed.closing}
