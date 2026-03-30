@@ -1,15 +1,30 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { copy } from "@/content/copy";
-import CtaButton from "./CtaButton";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 interface LeadCaptureModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const inputStyle: React.CSSProperties = {
+  fontFamily: "var(--font-body)",
+  backgroundColor: "var(--bg-raised)",
+  border: "1px solid var(--border-2)",
+  color: "var(--fg)",
+  borderRadius: "var(--radius-sm)",
+  padding: "12px 14px",
+  fontSize: "14px",
+  width: "100%",
+  fontWeight: 400,
+  lineHeight: 1.5,
+  transition: "border-color 0.15s ease",
+  outline: "none",
+};
 
 export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalProps) {
   const { modal } = copy;
@@ -19,11 +34,15 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
     if (isOpen) window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [isOpen, onClose]);
@@ -38,135 +57,256 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
     if (e.target === overlayRef.current) onClose();
   }
 
-  const inputBase: React.CSSProperties = {
-    backgroundColor: "var(--color-bg-base)",
-    border: "1px solid var(--color-border-medium)",
-    color: "var(--color-text-primary)",
-    borderRadius: "0.75rem",
-    padding: "0.75rem 1rem",
-    fontSize: "0.9375rem",
-    width: "100%",
-    transition: "box-shadow var(--duration-base) var(--ease-smooth)",
-    outline: "none",
-  };
-
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
           ref={overlayRef}
           onClick={handleOverlayClick}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          style={{ backgroundColor: "rgba(5,13,26,0.88)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 60,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            backgroundColor: "rgba(8,8,8,0.85)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+          }}
         >
           <motion.div
-            className="relative w-full max-w-lg"
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.35, ease: EASE }}
             style={{
-              backgroundColor: "var(--color-bg-elevated)",
-              border: "1px solid var(--color-border-medium)",
-              borderRadius: "1.5rem",
-              padding: "2.5rem",
+              position: "relative",
+              width: "100%",
+              maxWidth: "480px",
+              backgroundColor: "var(--bg-card)",
+              border: "1px solid var(--border-2)",
+              borderRadius: "16px",
+              padding: "36px",
             }}
           >
-            {/* Close */}
+            {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 flex items-center justify-center w-8 h-8 rounded-full cursor-pointer transition-colors"
-              style={{ color: "var(--color-text-muted)" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "var(--color-text-secondary)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "var(--color-text-muted)")}
               aria-label="Close"
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                width: "32px",
+                height: "32px",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius-sm)",
+                backgroundColor: "transparent",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--fg-3)",
+                fontSize: "16px",
+                lineHeight: 1,
+                fontFamily: "var(--font-body)",
+                transition: "color 0.15s ease, border-color 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.color = "var(--fg)";
+                el.style.borderColor = "var(--border-2)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.color = "var(--fg-3)";
+                el.style.borderColor = "var(--border)";
+              }}
             >
-              <X size={18} />
+              ×
             </button>
 
             {submitted ? (
-              <div className="text-center py-8">
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "32px 0",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                }}
+              >
                 <p
-                  className="text-4xl mb-4"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--color-text-primary)" }}
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontStyle: "italic",
+                    fontSize: "36px",
+                    color: "var(--fg)",
+                    lineHeight: 1.2,
+                  }}
                 >
-                  You&apos;re in.
+                  You&rsquo;re in.
                 </p>
-                <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9375rem", lineHeight: 1.75 }}>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "15px",
+                    lineHeight: 1.7,
+                    color: "var(--fg-2)",
+                  }}
+                >
                   Harshil will review your funnel and get back to you with what he finds.
                 </p>
               </div>
             ) : (
               <>
-                <div className="mb-7">
+                {/* Header */}
+                <div style={{ marginBottom: "28px" }}>
                   <h2
                     style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "1.75rem",
-                      lineHeight: 1.2,
-                      color: "var(--color-text-primary)",
-                      marginBottom: "0.5rem",
-                      letterSpacing: "-0.02em",
+                      fontFamily: "var(--font-body)",
+                      fontWeight: 400,
+                      fontSize: "22px",
+                      lineHeight: 1.25,
+                      color: "var(--fg)",
+                      letterSpacing: "-0.025em",
+                      marginBottom: "8px",
                     }}
                   >
                     {modal.headline}
                   </h2>
-                  <p style={{ color: "var(--color-text-secondary)", fontSize: "0.875rem", lineHeight: 1.7 }}>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "14px",
+                      lineHeight: 1.65,
+                      color: "var(--fg-2)",
+                      fontWeight: 400,
+                    }}
+                  >
                     {modal.subheadline}
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                <form
+                  onSubmit={handleSubmit}
+                  style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+                >
                   <input
                     type="text"
                     placeholder={modal.fields.name}
                     required
-                    style={inputBase}
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    style={inputStyle}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLInputElement).style.borderColor =
+                        "var(--accent)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLInputElement).style.borderColor =
+                        "var(--border-2)";
+                    }}
                   />
                   <input
                     type="email"
                     placeholder={modal.fields.email}
                     required
-                    style={inputBase}
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    style={inputStyle}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLInputElement).style.borderColor =
+                        "var(--accent)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLInputElement).style.borderColor =
+                        "var(--border-2)";
+                    }}
                   />
                   <select
                     required
-                    style={{ ...inputBase, appearance: "none" } as React.CSSProperties}
                     value={form.type}
                     onChange={(e) => setForm({ ...form, type: e.target.value })}
+                    style={{ ...inputStyle, appearance: "none" } as React.CSSProperties}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLSelectElement).style.borderColor =
+                        "var(--accent)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLSelectElement).style.borderColor =
+                        "var(--border-2)";
+                    }}
                   >
-                    <option value="" disabled>{modal.fields.type}</option>
+                    <option value="" disabled>
+                      {modal.fields.type}
+                    </option>
                     {modal.fields.typeOptions.map((opt) => (
-                      <option key={opt} value={opt}>{opt}</option>
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
                     ))}
                   </select>
                   <textarea
                     placeholder={modal.fields.message}
                     rows={3}
-                    style={{ ...inputBase, resize: "none" } as React.CSSProperties}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    style={{ ...inputStyle, resize: "none" } as React.CSSProperties}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLTextAreaElement).style.borderColor =
+                        "var(--accent)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLTextAreaElement).style.borderColor =
+                        "var(--border-2)";
+                    }}
                   />
 
                   <button
                     type="submit"
-                    className="w-full mt-2 rounded-full font-semibold text-white py-4 text-[0.9375rem] cursor-pointer transition-transform active:scale-[0.985]"
-                    style={{ background: "var(--color-brand-gradient)" }}
+                    style={{
+                      marginTop: "6px",
+                      width: "100%",
+                      backgroundColor: "var(--accent)",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "var(--radius-pill)",
+                      padding: "14px 24px",
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      fontFamily: "var(--font-body)",
+                      cursor: "pointer",
+                      letterSpacing: "0.01em",
+                      transition: "background-color 0.15s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                        "var(--accent-hover)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                        "var(--accent)";
+                    }}
                   >
                     {modal.submitCta}
                   </button>
 
                   <p
-                    className="text-center"
-                    style={{ color: "var(--color-text-muted)", fontSize: "0.75rem", lineHeight: 1.6, marginTop: "0.25rem" }}
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      lineHeight: 1.6,
+                      color: "var(--fg-3)",
+                      marginTop: "4px",
+                    }}
                   >
                     {modal.disclaimer}
                   </p>

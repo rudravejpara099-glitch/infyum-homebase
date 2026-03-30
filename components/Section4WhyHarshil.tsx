@@ -2,145 +2,250 @@
 
 import { motion } from "framer-motion";
 import { copy } from "@/content/copy";
-import { reveal, fadeUp, slideIn, staggerContainerFast } from "@/lib/animations";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+};
 
 export default function Section4WhyHarshil() {
   const { whyHarshil } = copy;
 
   return (
-    <section className="py-28 md:py-36" style={{ backgroundColor: "var(--color-bg-surface)" }}>
-      <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-16">
+    <section
+      style={{
+        backgroundColor: "var(--bg-raised)",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1120px",
+          margin: "0 auto",
+          padding: "140px 32px",
+        }}
+      >
         {/* Header */}
         <motion.div
-          variants={staggerContainerFast}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-14"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+          style={{ marginBottom: "72px" }}
         >
           <motion.p
             variants={fadeUp}
-            className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-5"
-            style={{ color: "var(--color-brand-primary)" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--fg-3)",
+              marginBottom: "20px",
+            }}
           >
-            The diagnostic lens
+            04 · The diagnostic lens
           </motion.p>
           <motion.h2
-            variants={reveal}
-            className="text-[2.25rem] md:text-[2.75rem] lg:text-[3.5rem] max-w-3xl"
+            variants={fadeUp}
             style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--color-text-primary)",
-              lineHeight: 1.06,
-              letterSpacing: "-0.025em",
-              textWrap: "balance",
-            } as React.CSSProperties}
+              fontFamily: "var(--font-body)",
+              fontWeight: 300,
+              fontSize: "clamp(32px, 3.5vw, 52px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.035em",
+              color: "var(--fg)",
+              maxWidth: "640px",
+            }}
           >
             {whyHarshil.headline}
           </motion.h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-16 lg:gap-24">
-          {/* Left — body copy */}
+        {/* Two-column layout */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 420px",
+            gap: "80px",
+            alignItems: "start",
+          }}
+          className="why-grid"
+        >
+          {/* Left — prose */}
           <motion.div
-            variants={staggerContainerFast}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex flex-col gap-5"
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.07 } },
+            }}
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
             {whyHarshil.opener.map((line, i) => (
               <motion.p
                 key={i}
                 variants={fadeUp}
-                className="text-[0.9375rem] md:text-base"
-                style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "17px",
+                  lineHeight: 1.75,
+                  color: "var(--fg-2)",
+                  fontWeight: 400,
+                }}
               >
                 {line}
               </motion.p>
             ))}
+
             <motion.p
               variants={fadeUp}
-              className="text-base font-semibold"
-              style={{ color: "var(--color-text-primary)" }}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "17px",
+                fontWeight: 500,
+                color: "var(--fg)",
+                lineHeight: 1.6,
+              }}
             >
               {whyHarshil.transition}
             </motion.p>
-            {[whyHarshil.deepBody, whyHarshil.followUp, whyHarshil.closing].map((para, i) => (
-              <motion.p
-                key={i}
-                variants={fadeUp}
-                className="text-[0.9375rem] md:text-base"
-                style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
-              >
-                {para}
-              </motion.p>
-            ))}
+
+            {[whyHarshil.deepBody, whyHarshil.followUp, whyHarshil.closing].map(
+              (para, i) => (
+                <motion.p
+                  key={i}
+                  variants={fadeUp}
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "17px",
+                    lineHeight: 1.75,
+                    color: "var(--fg-2)",
+                    fontWeight: 400,
+                  }}
+                >
+                  {para}
+                </motion.p>
+              )
+            )}
           </motion.div>
 
           {/* Right — checklist card + pull quote */}
-          <div className="flex flex-col gap-5">
-            {/* Checklist card with animated left border */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {/* Checklist */}
             <motion.div
-              variants={slideIn}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, x: 16 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative rounded-[var(--radius-card)] p-7 overflow-hidden"
+              transition={{ duration: 0.6, ease: EASE }}
               style={{
-                backgroundColor: "var(--color-bg-elevated)",
-                border: "1px solid var(--color-border-subtle)",
+                backgroundColor: "var(--bg-card)",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius-card)",
+                padding: "32px",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              {/* Animated left border accent */}
+              {/* Left accent bar */}
               <motion.div
-                className="absolute left-0 top-0 bottom-0 w-[2px]"
-                style={{ background: "var(--color-brand-gradient)", transformOrigin: "top" }}
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: "2px",
+                  backgroundColor: "var(--accent)",
+                  transformOrigin: "top",
+                }}
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
               />
+
               <p
-                className="text-[0.6875rem] font-semibold tracking-[0.16em] uppercase mb-6"
-                style={{ color: "var(--color-text-muted)" }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 500,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--fg-3)",
+                  marginBottom: "24px",
+                }}
               >
                 What Harshil looks for
               </p>
-              <div className="flex flex-col gap-0 divide-y" style={{ borderColor: "var(--color-border-subtle)" }}>
+
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 {whyHarshil.listItems.map((item, i) => (
-                  <p
+                  <div
                     key={i}
-                    className="text-sm py-4 leading-snug"
-                    style={{ color: "var(--color-text-primary)" }}
+                    style={{
+                      borderTop: i > 0 ? "1px solid var(--border)" : "none",
+                      padding: "14px 0",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "12px",
+                    }}
                   >
-                    <span className="inline-block mr-2 text-xs" style={{ color: "var(--color-brand-primary)" }}>✓</span>
-                    {item}
-                  </p>
+                    <span
+                      style={{
+                        fontSize: "10px",
+                        color: "var(--accent)",
+                        flexShrink: 0,
+                        marginTop: "3px",
+                        opacity: 0.8,
+                      }}
+                    >
+                      ✓
+                    </span>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "14px",
+                        lineHeight: 1.55,
+                        color: "var(--fg)",
+                        fontWeight: 400,
+                      }}
+                    >
+                      {item}
+                    </p>
+                  </div>
                 ))}
               </div>
             </motion.div>
 
             {/* Pull quote */}
             <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="rounded-[var(--radius-card)] p-7"
+              transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
               style={{
-                background: "linear-gradient(135deg, rgba(43,127,255,0.08) 0%, rgba(0,194,255,0.03) 100%)",
-                border: "1px solid rgba(43,127,255,0.18)",
+                backgroundColor: "var(--accent-dim)",
+                border: "1px solid var(--border-accent)",
+                borderRadius: "var(--radius-card)",
+                padding: "28px 32px",
               }}
             >
               <p
-                className="text-xl md:text-2xl"
                 style={{
                   fontFamily: "var(--font-display)",
                   fontStyle: "italic",
-                  color: "var(--color-text-primary)",
-                  lineHeight: 1.35,
-                  letterSpacing: "-0.015em",
+                  fontSize: "clamp(17px, 1.6vw, 20px)",
+                  lineHeight: 1.4,
+                  color: "var(--fg)",
+                  letterSpacing: "-0.01em",
                 }}
               >
                 &ldquo;{whyHarshil.pullQuote}&rdquo;
@@ -149,6 +254,15 @@ export default function Section4WhyHarshil() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .why-grid {
+            grid-template-columns: 1fr !important;
+            gap: 48px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

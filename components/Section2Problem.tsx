@@ -2,75 +2,133 @@
 
 import { motion } from "framer-motion";
 import { copy } from "@/content/copy";
-import { reveal, fadeUp, staggerContainerFast } from "@/lib/animations";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+};
 
 export default function Section2Problem() {
   const { problem } = copy;
 
   return (
-    <section className="py-28 md:py-36" style={{ backgroundColor: "var(--color-bg-surface)" }}>
-      <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-start">
-          {/* Left — label + headline */}
+    <section
+      style={{
+        backgroundColor: "var(--bg-raised)",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1120px",
+          margin: "0 auto",
+          padding: "140px 32px",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "280px 1fr",
+            gap: "80px",
+          }}
+          className="problem-grid"
+        >
+          {/* Left — section marker */}
           <motion.div
-            variants={staggerContainerFast}
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: EASE }}
+            style={{ paddingTop: "6px" }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: "var(--fg-3)",
+                marginBottom: "16px",
+              }}
+            >
+              02 · Problem
+            </p>
+            <div
+              style={{
+                width: "24px",
+                height: "1px",
+                backgroundColor: "var(--border-2)",
+              }}
+            />
+          </motion.div>
+
+          {/* Right — content */}
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08 } },
+            }}
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-5"
-              style={{ color: "var(--color-brand-primary)" }}
-            >
-              The real problem
-            </motion.p>
+            {/* Headline */}
             <motion.h2
-              variants={reveal}
-              className="text-[2.25rem] md:text-[2.75rem] lg:text-[3.5rem]"
+              variants={fadeUp}
               style={{
-                fontFamily: "var(--font-display)",
-                color: "var(--color-text-primary)",
-                lineHeight: 1.06,
-                letterSpacing: "-0.025em",
-                textWrap: "balance",
-              } as React.CSSProperties}
+                fontFamily: "var(--font-body)",
+                fontWeight: 300,
+                fontSize: "clamp(32px, 3.5vw, 52px)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.035em",
+                color: "var(--fg)",
+                marginBottom: "48px",
+                maxWidth: "640px",
+              }}
             >
               {problem.headline}
             </motion.h2>
-          </motion.div>
 
-          {/* Right — body copy */}
-          <motion.div
-            variants={staggerContainerFast}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex flex-col gap-5"
-          >
-            {problem.paragraphs.map((para, i) => (
-              <motion.p
-                key={i}
-                variants={fadeUp}
-                className="text-[0.9375rem] md:text-base"
-                style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
-              >
-                {para}
-              </motion.p>
-            ))}
+            {/* Paragraphs */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {problem.paragraphs.map((para, i) => (
+                <motion.p
+                  key={i}
+                  variants={fadeUp}
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "17px",
+                    lineHeight: 1.75,
+                    color: "var(--fg-2)",
+                    fontWeight: 400,
+                  }}
+                >
+                  {para}
+                </motion.p>
+              ))}
+            </div>
 
+            {/* Closing line — serif italic */}
             <motion.div
               variants={fadeUp}
-              className="mt-4 pt-8"
-              style={{ borderTop: "1px solid var(--color-border-subtle)" }}
+              style={{
+                marginTop: "48px",
+                paddingTop: "40px",
+                borderTop: "1px solid var(--border)",
+              }}
             >
               <p
-                className="text-xl md:text-2xl"
                 style={{
                   fontFamily: "var(--font-display)",
-                  color: "var(--color-brand-primary)",
+                  fontStyle: "italic",
+                  fontSize: "clamp(20px, 2.2vw, 28px)",
                   lineHeight: 1.35,
-                  letterSpacing: "-0.015em",
+                  color: "var(--fg)",
+                  letterSpacing: "-0.01em",
                 }}
               >
                 {problem.closingLine}
@@ -79,6 +137,15 @@ export default function Section2Problem() {
           </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .problem-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

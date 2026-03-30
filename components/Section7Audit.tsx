@@ -1,10 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
 import { copy } from "@/content/copy";
-import { reveal, fadeUp, slideIn, staggerContainerFast } from "@/lib/animations";
 import CtaButton from "./ui/CtaButton";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+};
 
 interface Section7AuditProps {
   onCtaClick: () => void;
@@ -14,71 +19,119 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
   const { audit } = copy;
 
   return (
-    <section className="py-28 md:py-36" style={{ backgroundColor: "var(--color-bg-base)" }}>
-      <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-16">
+    <section style={{ backgroundColor: "var(--bg)" }}>
+      <div
+        style={{
+          maxWidth: "1120px",
+          margin: "0 auto",
+          padding: "140px 32px",
+        }}
+      >
         {/* Header */}
         <motion.div
-          variants={staggerContainerFast}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-14"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+          style={{ marginBottom: "72px" }}
         >
           <motion.p
             variants={fadeUp}
-            className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-5"
-            style={{ color: "var(--color-brand-primary)" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--fg-3)",
+              marginBottom: "20px",
+            }}
           >
-            The free audit
+            07 · Free audit
           </motion.p>
           <motion.h2
-            variants={reveal}
-            className="text-[2.25rem] md:text-[2.75rem] lg:text-[3.5rem] max-w-3xl mb-4"
+            variants={fadeUp}
             style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--color-text-primary)",
-              lineHeight: 1.06,
-              letterSpacing: "-0.025em",
-              textWrap: "balance",
-            } as React.CSSProperties}
+              fontFamily: "var(--font-body)",
+              fontWeight: 300,
+              fontSize: "clamp(32px, 3.5vw, 52px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.035em",
+              color: "var(--fg)",
+              marginBottom: "12px",
+              maxWidth: "640px",
+            }}
           >
             {audit.headline}
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="text-[0.9375rem]"
-            style={{ color: "var(--color-text-secondary)" }}
+            style={{
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
+              fontSize: "17px",
+              color: "var(--fg-2)",
+            }}
           >
             {audit.subheadline}
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12">
+        {/* Two-column */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 380px",
+            gap: "80px",
+            alignItems: "start",
+          }}
+          className="audit-grid"
+        >
           {/* Left */}
           <motion.div
-            variants={staggerContainerFast}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex flex-col gap-7"
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.09 } },
+            }}
+            style={{ display: "flex", flexDirection: "column", gap: "28px" }}
           >
             <motion.p
               variants={fadeUp}
-              className="text-[0.9375rem] md:text-base"
-              style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "17px",
+                lineHeight: 1.75,
+                color: "var(--fg-2)",
+                fontWeight: 400,
+              }}
             >
               {audit.body}
             </motion.p>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-2">
+            {/* Lens tags */}
+            <motion.div
+              variants={fadeUp}
+              style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
+            >
               {audit.lenses.map((lens) => (
                 <span
                   key={lens}
-                  className="px-4 py-2 rounded-full text-xs font-medium tracking-wide"
                   style={{
-                    backgroundColor: "rgba(43,127,255,0.08)",
-                    border: "1px solid rgba(43,127,255,0.18)",
-                    color: "var(--color-brand-primary)",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "12px",
+                    fontWeight: 400,
+                    color: "var(--fg-2)",
+                    backgroundColor: "var(--bg-card)",
+                    border: "1px solid var(--border-2)",
+                    borderRadius: "var(--radius-pill)",
+                    padding: "6px 14px",
+                    letterSpacing: "0.01em",
                   }}
                 >
                   {lens}
@@ -86,13 +139,23 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
               ))}
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex flex-col gap-4">
+            {/* CTA */}
+            <motion.div
+              variants={fadeUp}
+              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            >
               <CtaButton onClick={onCtaClick} size="large">
                 {audit.cta}
               </CtaButton>
               <p
-                className="text-sm max-w-sm"
-                style={{ color: "var(--color-text-muted)", lineHeight: 1.75 }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "13px",
+                  lineHeight: 1.7,
+                  color: "var(--fg-3)",
+                  maxWidth: "380px",
+                  fontWeight: 400,
+                }}
               >
                 {audit.supportText}
               </p>
@@ -101,34 +164,65 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
 
           {/* Right — checklist */}
           <motion.div
-            variants={slideIn}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="rounded-[var(--radius-card)] p-7 h-fit"
+            transition={{ duration: 0.65, ease: EASE }}
             style={{
-              backgroundColor: "var(--color-bg-surface)",
-              border: "1px solid var(--color-border-subtle)",
+              backgroundColor: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius-card)",
+              padding: "32px",
             }}
           >
             <p
-              className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-7"
-              style={{ color: "var(--color-text-muted)" }}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "10px",
+                fontWeight: 500,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--fg-3)",
+                marginBottom: "24px",
+              }}
             >
               {audit.auditLabel}
             </p>
-            <div className="flex flex-col gap-5">
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
               {audit.checklistItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-4">
+                <div
+                  key={i}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "14px",
+                  }}
+                >
                   <div
-                    className="flex items-center justify-center w-5 h-5 rounded-full flex-shrink-0 mt-0.5"
-                    style={{ backgroundColor: "rgba(43,127,255,0.14)" }}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "50%",
+                      backgroundColor: "var(--accent-dim)",
+                      border: "1px solid var(--border-accent)",
+                      flexShrink: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginTop: "1px",
+                    }}
                   >
-                    <Check size={10} style={{ color: "var(--color-brand-primary)" }} />
+                    <span style={{ fontSize: "9px", color: "var(--accent)" }}>✓</span>
                   </div>
                   <p
-                    className="text-sm"
-                    style={{ color: "var(--color-text-secondary)", lineHeight: 1.75 }}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "14px",
+                      lineHeight: 1.65,
+                      color: "var(--fg-2)",
+                      fontWeight: 400,
+                    }}
                   >
                     {item}
                   </p>
@@ -138,6 +232,15 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
           </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .audit-grid {
+            grid-template-columns: 1fr !important;
+            gap: 48px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

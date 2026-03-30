@@ -14,7 +14,6 @@ import LeadCaptureModal from "@/components/ui/LeadCaptureModal";
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
-
   const openModal = useCallback(() => setModalOpen(true), []);
   const closeModal = useCallback(() => setModalOpen(false), []);
 
@@ -32,22 +31,42 @@ export default function Home() {
         <Section8FinalCTA onCtaClick={openModal} />
       </main>
 
-      {/* Footer */}
       <footer
-        className="py-8 px-6 md:px-10 lg:px-16"
         style={{
-          backgroundColor: "var(--color-bg-base)",
-          borderTop: "1px solid var(--color-border-subtle)",
+          backgroundColor: "var(--bg)",
+          borderTop: "1px solid var(--border)",
+          padding: "32px",
         }}
       >
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div
+          style={{
+            maxWidth: "1120px",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "12px",
+          }}
+        >
           <span
-            className="text-sm font-semibold tracking-widest"
-            style={{ color: "var(--color-text-muted)", letterSpacing: "0.18em" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontWeight: 600,
+              fontSize: "12px",
+              letterSpacing: "0.2em",
+              color: "var(--fg-3)",
+            }}
           >
             INFYUM
           </span>
-          <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "12px",
+              color: "var(--fg-3)",
+            }}
+          >
             &copy; {new Date().getFullYear()} Infyum. All rights reserved.
           </p>
         </div>

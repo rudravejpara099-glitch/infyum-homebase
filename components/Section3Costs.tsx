@@ -2,91 +2,178 @@
 
 import { motion } from "framer-motion";
 import { copy } from "@/content/copy";
-import { reveal, fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animations";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+};
 
 export default function Section3Costs() {
   const { costs } = copy;
 
   return (
-    <section id="costs" className="py-28 md:py-36" style={{ backgroundColor: "var(--color-bg-base)" }}>
-      <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-16">
+    <section
+      id="costs"
+      style={{ backgroundColor: "var(--bg)" }}
+    >
+      <div
+        style={{
+          maxWidth: "1120px",
+          margin: "0 auto",
+          padding: "140px 32px",
+        }}
+      >
         {/* Header */}
         <motion.div
-          variants={staggerContainerFast}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-16"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+          style={{ marginBottom: "72px" }}
         >
           <motion.p
             variants={fadeUp}
-            className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-5"
-            style={{ color: "var(--color-brand-primary)" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--fg-3)",
+              marginBottom: "20px",
+            }}
           >
-            The cost of inaction
+            03 · The real cost
           </motion.p>
           <motion.h2
-            variants={reveal}
-            className="text-[2.25rem] md:text-[2.75rem] lg:text-[3.5rem] mb-3 max-w-3xl"
+            variants={fadeUp}
             style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--color-text-primary)",
-              lineHeight: 1.06,
-              letterSpacing: "-0.025em",
-              textWrap: "balance",
-            } as React.CSSProperties}
+              fontFamily: "var(--font-body)",
+              fontWeight: 300,
+              fontSize: "clamp(32px, 3.5vw, 52px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.035em",
+              color: "var(--fg)",
+              marginBottom: "12px",
+              maxWidth: "600px",
+            }}
           >
             {costs.headline}
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+          <motion.p
+            variants={fadeUp}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "15px",
+              color: "var(--fg-3)",
+              fontWeight: 400,
+            }}
+          >
             {costs.subheadline}
           </motion.p>
         </motion.div>
 
-        {/* Cards — gap-px joined grid */}
+        {/* Cards grid */}
         <motion.div
-          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-px mb-20 rounded-[var(--radius-card)] overflow-hidden"
-          style={{ background: "var(--color-border-subtle)" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "1px",
+            backgroundColor: "var(--border)",
+            borderRadius: "var(--radius-card)",
+            overflow: "hidden",
+            marginBottom: "80px",
+          }}
+          className="costs-grid"
         >
           {costs.cards.map((card, i) => (
             <motion.div
               key={i}
               variants={fadeUp}
-              className="relative p-8 md:p-10 transition-colors duration-200"
-              style={{ backgroundColor: "var(--color-bg-surface)" }}
-              whileHover={{ backgroundColor: "var(--color-bg-elevated)" }}
+              style={{
+                backgroundColor: "var(--bg-card)",
+                padding: "36px 40px",
+                position: "relative",
+                transition: "background-color 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.backgroundColor =
+                  "var(--bg-card-hover)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.backgroundColor =
+                  "var(--bg-card)";
+              }}
             >
-              {/* Watermark number */}
+              {/* Number watermark */}
               <span
-                className="absolute top-6 right-8 text-5xl font-bold pointer-events-none select-none"
+                aria-hidden
                 style={{
-                  color: "var(--color-text-primary)",
-                  opacity: 0.04,
-                  fontFamily: "var(--font-display)",
+                  position: "absolute",
+                  top: "24px",
+                  right: "32px",
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 700,
+                  fontSize: "72px",
                   lineHeight: 1,
+                  color: "var(--fg)",
+                  opacity: 0.025,
+                  pointerEvents: "none",
+                  userSelect: "none",
+                  letterSpacing: "-0.05em",
                 }}
               >
                 0{i + 1}
               </span>
+
               <p
-                className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-5"
-                style={{ color: "var(--color-brand-primary)" }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "var(--accent)",
+                  marginBottom: "20px",
+                  opacity: 0.7,
+                }}
               >
                 0{i + 1}
               </p>
+
               <h3
-                className="text-base font-semibold mb-3"
-                style={{ color: "var(--color-text-primary)", lineHeight: 1.4 }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 500,
+                  fontSize: "17px",
+                  lineHeight: 1.35,
+                  color: "var(--fg)",
+                  marginBottom: "12px",
+                }}
               >
                 {card.title}
               </h3>
+
               <p
-                className="text-sm"
-                style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "15px",
+                  lineHeight: 1.7,
+                  color: "var(--fg-2)",
+                  fontWeight: 400,
+                }}
               >
                 {card.body}
               </p>
@@ -95,27 +182,32 @@ export default function Section3Costs() {
         </motion.div>
 
         {/* Bottom line */}
-        <motion.div
-          variants={reveal}
-          initial="hidden"
-          whileInView="visible"
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto"
+          transition={{ duration: 0.65, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontStyle: "italic",
+            fontSize: "clamp(22px, 2.5vw, 32px)",
+            lineHeight: 1.3,
+            letterSpacing: "-0.015em",
+            color: "var(--fg)",
+            maxWidth: "680px",
+          }}
         >
-          <p
-            className="text-2xl md:text-3xl lg:text-[2.25rem]"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--color-text-primary)",
-              lineHeight: 1.2,
-              letterSpacing: "-0.015em",
-              textWrap: "balance",
-            } as React.CSSProperties}
-          >
-            {costs.bottomLine}
-          </p>
-        </motion.div>
+          {costs.bottomLine}
+        </motion.p>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .costs-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

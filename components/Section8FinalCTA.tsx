@@ -2,8 +2,14 @@
 
 import { motion } from "framer-motion";
 import { copy } from "@/content/copy";
-import { reveal, fadeUp, staggerContainerFast } from "@/lib/animations";
 import CtaButton from "./ui/CtaButton";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+};
 
 interface Section8FinalCTAProps {
   onCtaClick: () => void;
@@ -14,115 +20,158 @@ export default function Section8FinalCTA({ onCtaClick }: Section8FinalCTAProps) 
 
   return (
     <section
-      className="relative py-32 md:py-44 overflow-hidden"
-      style={{ backgroundColor: "var(--color-bg-surface)" }}
+      style={{
+        backgroundColor: "var(--bg-raised)",
+        borderTop: "1px solid var(--border)",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
-      {/* Cross-hatch dot grid — layer 1 */}
+      {/* Subtle glow from bottom */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        aria-hidden
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(43,127,255,0.09) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-          maskImage: "radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 85%)",
-          WebkitMaskImage: "radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 85%)",
-        }}
-      />
-      {/* Cross-hatch dot grid — layer 2 (offset, rotated) */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(0,194,255,0.04) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-          backgroundPosition: "22px 22px",
-          maskImage: "radial-gradient(ellipse 55% 65% at 50% 50%, black 5%, transparent 80%)",
-          WebkitMaskImage: "radial-gradient(ellipse 55% 65% at 50% 50%, black 5%, transparent 80%)",
-        }}
-      />
-
-      {/* Animated glow */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 65% 55% at 50% 100%, rgba(43,127,255,0.09) 0%, transparent 100%)",
+            "radial-gradient(ellipse 80% 50% at 50% 100%, rgba(43,127,255,0.07) 0%, transparent 70%)",
         }}
-        animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.04, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-10 lg:px-16">
-        {/* Thin HR rule with gradient */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: "1120px",
+          margin: "0 auto",
+          padding: "140px 32px 160px",
+        }}
+      >
+        {/* Animated rule */}
         <motion.div
-          className="mb-12"
           initial={{ scaleX: 0, opacity: 0 }}
           whileInView={{ scaleX: 1, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          style={{ transformOrigin: "left" }}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ transformOrigin: "left", marginBottom: "72px" }}
         >
           <div
             style={{
               height: "1px",
               background:
-                "linear-gradient(90deg, transparent, rgba(43,127,255,0.4) 40%, rgba(0,194,255,0.3) 60%, transparent)",
+                "linear-gradient(90deg, var(--accent) 0%, transparent 60%)",
+              opacity: 0.3,
             }}
           />
         </motion.div>
 
         <motion.div
-          variants={staggerContainerFast}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
         >
           <motion.p
             variants={fadeUp}
-            className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-7"
-            style={{ color: "var(--color-brand-primary)" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--fg-3)",
+              marginBottom: "24px",
+            }}
           >
-            Ready to fix it
+            08 · Ready
           </motion.p>
 
+          {/* Big headline */}
           <motion.h2
-            variants={reveal}
-            className="text-[2.75rem] md:text-[3.75rem] lg:text-[5rem] xl:text-[5.5rem] mb-5"
+            variants={fadeUp}
             style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--color-text-primary)",
-              lineHeight: 1.04,
-              letterSpacing: "-0.025em",
-              textWrap: "balance",
-            } as React.CSSProperties}
+              fontFamily: "var(--font-body)",
+              fontWeight: 300,
+              fontSize: "clamp(44px, 6vw, 80px)",
+              lineHeight: 1.06,
+              letterSpacing: "-0.04em",
+              color: "var(--fg)",
+              marginBottom: "24px",
+              maxWidth: "900px",
+            }}
           >
             {finalCta.headline}
           </motion.h2>
 
+          {/* Subheadline */}
           <motion.p
             variants={fadeUp}
-            className="text-lg md:text-xl font-medium mb-12"
-            style={{ color: "var(--color-brand-primary)" }}
+            style={{
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
+              fontSize: "clamp(18px, 1.8vw, 22px)",
+              lineHeight: 1.45,
+              color: "var(--accent)",
+              marginBottom: "48px",
+              opacity: 0.85,
+            }}
           >
             {finalCta.subheadline}
           </motion.p>
 
-          <div className="flex flex-col gap-5 mb-14 max-w-2xl">
+          {/* Body paragraphs */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              maxWidth: "600px",
+              marginBottom: "56px",
+            }}
+          >
             {finalCta.paragraphs.map((para, i) => (
               <motion.p
                 key={i}
                 variants={fadeUp}
-                className="text-[0.9375rem] md:text-base"
-                style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "17px",
+                  lineHeight: 1.75,
+                  color: "var(--fg-2)",
+                  fontWeight: 400,
+                }}
               >
                 {para}
               </motion.p>
             ))}
           </div>
 
-          <motion.div variants={fadeUp} className="flex flex-col items-start gap-5">
+          {/* CTA block */}
+          <motion.div
+            variants={fadeUp}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: "16px",
+            }}
+          >
             <CtaButton onClick={onCtaClick} size="large">
               {finalCta.cta}
             </CtaButton>
-            <p className="text-xs tracking-wide" style={{ color: "var(--color-text-muted)" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "12px",
+                color: "var(--fg-3)",
+                lineHeight: 1.6,
+                letterSpacing: "0.01em",
+              }}
+            >
               {finalCta.closingSupport}
             </p>
           </motion.div>

@@ -2,90 +2,142 @@
 
 import { motion } from "framer-motion";
 import { copy } from "@/content/copy";
-import { reveal, fadeUp, slideIn, staggerContainerFast } from "@/lib/animations";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+};
 
 export default function Section6RightFit() {
   const { rightFit } = copy;
 
   return (
-    <section className="py-28 md:py-36" style={{ backgroundColor: "var(--color-bg-surface)" }}>
-      <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-16">
+    <section
+      style={{
+        backgroundColor: "var(--bg-raised)",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1120px",
+          margin: "0 auto",
+          padding: "140px 32px",
+        }}
+      >
         {/* Header */}
         <motion.div
-          variants={staggerContainerFast}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-12"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+          style={{ marginBottom: "64px" }}
         >
           <motion.p
             variants={fadeUp}
-            className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase mb-5"
-            style={{ color: "var(--color-brand-primary)" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--fg-3)",
+              marginBottom: "20px",
+            }}
           >
-            Who this is for
+            06 · Who this is for
           </motion.p>
           <motion.h2
-            variants={reveal}
-            className="text-[2.25rem] md:text-[2.75rem] lg:text-[3.5rem] max-w-3xl mb-4"
+            variants={fadeUp}
             style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--color-text-primary)",
-              lineHeight: 1.06,
-              letterSpacing: "-0.025em",
-              textWrap: "balance",
-            } as React.CSSProperties}
+              fontFamily: "var(--font-body)",
+              fontWeight: 300,
+              fontSize: "clamp(32px, 3.5vw, 52px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.035em",
+              color: "var(--fg)",
+              marginBottom: "16px",
+              maxWidth: "700px",
+            }}
           >
             {rightFit.headline}
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="text-[0.9375rem] md:text-base"
-            style={{ color: "var(--color-text-secondary)" }}
+            style={{
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
+              fontSize: "18px",
+              color: "var(--fg-2)",
+              lineHeight: 1.5,
+            }}
           >
             {rightFit.subheadline}
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-14 lg:gap-24">
-          {/* Left — body */}
+        {/* Two-column */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 380px",
+            gap: "80px",
+            alignItems: "start",
+          }}
+          className="rightfit-grid"
+        >
+          {/* Left — prose */}
           <motion.div
-            variants={staggerContainerFast}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex flex-col gap-5"
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08 } },
+            }}
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
-            {[rightFit.opener, rightFit.body].map((para, i) => (
+            {[rightFit.opener, rightFit.body, rightFit.consequence].map((para, i) => (
               <motion.p
                 key={i}
                 variants={fadeUp}
-                className="text-[0.9375rem] md:text-base"
-                style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "17px",
+                  lineHeight: 1.75,
+                  color: "var(--fg-2)",
+                  fontWeight: 400,
+                }}
               >
                 {para}
               </motion.p>
             ))}
-            <motion.p
-              variants={fadeUp}
-              className="text-[0.9375rem] md:text-base"
-              style={{ color: "var(--color-text-secondary)", lineHeight: 1.85 }}
-            >
-              {rightFit.consequence}
-            </motion.p>
 
-            {/* Right-fit highlight box */}
+            {/* Right-fit highlight */}
             <motion.div
               variants={fadeUp}
-              className="mt-4 rounded-[var(--radius-card)] p-7"
               style={{
-                background: "linear-gradient(135deg, rgba(43,127,255,0.08) 0%, rgba(0,194,255,0.03) 100%)",
-                border: "1px solid rgba(43,127,255,0.18)",
+                marginTop: "8px",
+                padding: "28px 32px",
+                backgroundColor: "var(--accent-dim)",
+                border: "1px solid var(--border-accent)",
+                borderRadius: "var(--radius-card)",
               }}
             >
               <p
-                className="text-[0.9375rem] md:text-base"
-                style={{ color: "var(--color-text-primary)", lineHeight: 1.75 }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "16px",
+                  lineHeight: 1.7,
+                  color: "var(--fg)",
+                  fontWeight: 400,
+                }}
               >
                 {rightFit.rightFitLine}
               </p>
@@ -94,48 +146,80 @@ export default function Section6RightFit() {
 
           {/* Right — state items */}
           <motion.div
-            variants={slideIn}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col gap-0 divide-y self-start rounded-[var(--radius-card)] overflow-hidden"
-            style={{ border: "1px solid var(--color-border-subtle)" }}
+            transition={{ duration: 0.65, ease: EASE }}
+            style={{
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius-card)",
+              overflow: "hidden",
+            }}
           >
             {rightFit.stateItems.map((item, i) => {
               const isLast = i === rightFit.stateItems.length - 1;
               return (
-                <motion.div
+                <div
                   key={i}
-                  className="px-7 py-6"
-                  style={{ backgroundColor: "var(--color-bg-elevated)", borderColor: "var(--color-border-subtle)" }}
-                  whileHover={{ backgroundColor: "rgba(15,30,56,0.9)" }}
-                  transition={{ duration: 0.15 }}
+                  style={{
+                    padding: "24px 28px",
+                    backgroundColor: "var(--bg-card)",
+                    borderBottom:
+                      i < rightFit.stateItems.length - 1
+                        ? "1px solid var(--border)"
+                        : "none",
+                  }}
                 >
                   <p
-                    className="text-[0.6875rem] font-medium tracking-widest uppercase mb-1"
-                    style={{ color: "var(--color-text-muted)" }}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "10px",
+                      fontWeight: 500,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "var(--fg-3)",
+                      marginBottom: "6px",
+                    }}
                   >
                     {item.label}
                   </p>
                   <motion.p
-                    className="text-lg"
-                    initial={{ color: isLast ? "var(--color-text-muted)" : "var(--color-text-primary)" }}
-                    whileInView={isLast ? { color: "var(--color-brand-primary)" } : undefined}
+                    initial={{
+                      color: isLast ? "var(--fg-3)" : "var(--fg)",
+                    }}
+                    whileInView={
+                      isLast
+                        ? { color: "var(--accent)" }
+                        : undefined
+                    }
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
                     style={{
-                      fontFamily: "var(--font-display)",
+                      fontFamily: isLast ? "var(--font-display)" : "var(--font-body)",
                       fontStyle: isLast ? "italic" : "normal",
+                      fontWeight: isLast ? 400 : 400,
+                      fontSize: "18px",
+                      lineHeight: 1.35,
+                      letterSpacing: isLast ? "-0.01em" : "0",
                     }}
                   >
                     {item.state}
                   </motion.p>
-                </motion.div>
+                </div>
               );
             })}
           </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .rightfit-grid {
+            grid-template-columns: 1fr !important;
+            gap: 48px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
