@@ -1,65 +1,59 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useCallback } from "react";
+import Navigation from "@/components/Navigation";
+import Section1Hero from "@/components/Section1Hero";
+import Section2Problem from "@/components/Section2Problem";
+import Section3Costs from "@/components/Section3Costs";
+import Section4WhyHarshil from "@/components/Section4WhyHarshil";
+import Section5WhatGetFixed from "@/components/Section5WhatGetFixed";
+import Section6RightFit from "@/components/Section6RightFit";
+import Section7Audit from "@/components/Section7Audit";
+import Section8FinalCTA from "@/components/Section8FinalCTA";
+import LeadCaptureModal from "@/components/ui/LeadCaptureModal";
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = useCallback(() => setModalOpen(true), []);
+  const closeModal = useCallback(() => setModalOpen(false), []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <Navigation onCtaClick={openModal} />
+      <main>
+        <Section1Hero onCtaClick={openModal} />
+        <Section2Problem />
+        <Section3Costs />
+        <Section4WhyHarshil />
+        <Section5WhatGetFixed />
+        <Section6RightFit />
+        <Section7Audit onCtaClick={openModal} />
+        <Section8FinalCTA onCtaClick={openModal} />
+      </main>
+
+      {/* Footer */}
+      <footer
+        className="py-8 px-6 md:px-10 lg:px-16"
+        style={{
+          backgroundColor: "var(--color-bg-base)",
+          borderTop: "1px solid var(--color-border-subtle)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span
+            className="text-sm font-semibold tracking-widest"
+            style={{ color: "var(--color-text-muted)", letterSpacing: "0.18em" }}
+          >
+            INFYUM
+          </span>
+          <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
+            &copy; {new Date().getFullYear()} Infyum. All rights reserved.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </footer>
+
+      <LeadCaptureModal isOpen={modalOpen} onClose={closeModal} />
+    </>
   );
 }
