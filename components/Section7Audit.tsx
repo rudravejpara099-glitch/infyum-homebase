@@ -41,10 +41,20 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
           variants={fadeUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-[32px] md:text-[52px] font-bold text-[#F5F5F5] text-center leading-[1.1] tracking-[-0.03em] max-w-[860px] mx-auto mb-6"
+          className="text-[32px] md:text-[52px] font-bold text-[#F5F5F5] text-center leading-[1.1] tracking-[-0.03em] max-w-[860px] mx-auto mb-4"
         >
           {AUDIT.headline}
         </motion.h2>
+
+        {/* Subheadline */}
+        <motion.p
+          variants={fadeUp}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="text-[17px] text-[#666] italic text-center mb-6"
+        >
+          {AUDIT.subheadline}
+        </motion.p>
 
         {/* Body */}
         <motion.p
@@ -97,7 +107,7 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
                   className="flex items-start gap-3"
                 >
                   <span
-                    className="mt-1 w-2 h-2 rounded-full shrink-0"
+                    className="mt-[7px] w-2 h-2 rounded-full shrink-0"
                     style={{ background: "#2B7FFF" }}
                   />
                   <span className="text-[15px] text-[#666] leading-[1.7]">
@@ -113,7 +123,7 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
             variants={slideInFromRight}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
-            className="rounded-2xl p-8"
+            className="rounded-2xl p-8 flex flex-col gap-5"
             style={{
               background: "#111",
               border: "1px solid rgba(43,127,255,0.2)",
@@ -125,11 +135,8 @@ export default function Section7Audit({ onCtaClick }: Section7AuditProps) {
               fullWidth
               size="default"
             />
-            <p className="text-[13px] text-[#555] text-center mt-4">
-              {AUDIT.ctaCardSupport}
-            </p>
-            <p className="text-[14px] text-[#666] text-center leading-[1.75] mt-5">
-              {AUDIT.ctaCardBonus}
+            <p className="text-[14px] text-[#666] text-center leading-[1.75]">
+              {AUDIT.ctaCardText}
             </p>
           </motion.div>
         </div>

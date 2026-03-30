@@ -12,9 +12,14 @@ export default function Section5WhatGetFixed() {
   return (
     <section
       ref={ref}
-      className="px-6 md:px-16 py-24 md:py-32"
+      className="relative px-6 md:px-16 py-24 md:py-32"
       style={{ background: "#0A0A0A" }}
     >
+      {/* Section number */}
+      <span className="absolute top-10 right-16 text-[11px] text-[#333] tracking-[3px] hidden md:block">
+        {WHAT_GETS_FIXED.sectionNum}
+      </span>
+
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -40,22 +45,46 @@ export default function Section5WhatGetFixed() {
         {/* Intro */}
         <motion.p
           variants={fadeUp}
-          className="text-[16px] text-[#666] text-center leading-[1.85] max-w-[660px] mx-auto mb-14"
+          className="text-[16px] text-[#666] text-center leading-[1.85] max-w-[660px] mx-auto mb-4"
         >
           {WHAT_GETS_FIXED.intro}
         </motion.p>
 
-        {/* Rows */}
-        <motion.div variants={staggerContainer} className="flex flex-col">
+        {/* Body */}
+        <motion.p
+          variants={fadeUp}
+          className="text-[16px] text-[#666] text-center leading-[1.85] max-w-[660px] mx-auto mb-3"
+        >
+          {WHAT_GETS_FIXED.body}
+        </motion.p>
+
+        {/* Execution line */}
+        <motion.p
+          variants={fadeUp}
+          className="text-[16px] text-[#999] text-center leading-[1.85] max-w-[660px] mx-auto mb-14"
+        >
+          {WHAT_GETS_FIXED.execution}
+        </motion.p>
+
+        {/* List label */}
+        <motion.p
+          variants={fadeUp}
+          className="text-[13px] font-medium tracking-[1.5px] text-[#555] text-center mb-8 uppercase"
+        >
+          {WHAT_GETS_FIXED.listLabel}
+        </motion.p>
+
+        {/* Table rows */}
+        <motion.div variants={staggerContainer} className="flex flex-col max-w-[860px] mx-auto">
           {WHAT_GETS_FIXED.rows.map((row, i) => (
             <motion.div
               key={i}
               variants={fadeUp}
-              className="group flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 py-5 px-4 -mx-4 rounded-xl transition-colors duration-150"
+              className="group flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 py-5 px-4 -mx-4 rounded-xl transition-colors duration-150"
               style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
-              whileHover={{ backgroundColor: "rgba(17,17,17,1)" }}
+              whileHover={{ backgroundColor: "rgba(17,17,17,0.8)" }}
             >
-              <span className="text-[16px] font-semibold text-[#F5F5F5] shrink-0 min-w-[220px]">
+              <span className="text-[16px] font-semibold text-[#F5F5F5] shrink-0 min-w-[200px]">
                 {row.label}
                 <span className="text-[#333] mx-2">—</span>
               </span>

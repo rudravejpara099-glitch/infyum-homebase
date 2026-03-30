@@ -12,9 +12,14 @@ export default function Section3Costs() {
   return (
     <section
       ref={ref}
-      className="px-6 md:px-16 py-24 md:py-32"
+      className="relative px-6 md:px-16 py-24 md:py-32"
       style={{ background: "#0A0A0A" }}
     >
+      {/* Section number */}
+      <span className="absolute top-10 right-16 text-[11px] text-[#333] tracking-[3px] hidden md:block">
+        {COSTS.sectionNum}
+      </span>
+
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -54,23 +59,24 @@ export default function Section3Costs() {
             <motion.div
               key={card.num}
               variants={scaleIn}
-              className="relative p-6 rounded-3xl group transition-all duration-300 overflow-hidden"
+              className="relative p-8 rounded-2xl group transition-all duration-300 overflow-hidden"
               style={{
                 background: "#111",
                 border: "1px solid rgba(255,255,255,0.07)",
               }}
               whileHover={{
                 borderColor: "rgba(43,127,255,0.2)",
+                y: -2,
                 transition: { duration: 0.2 },
               }}
             >
               {/* Watermark number */}
-              <span className="absolute top-4 left-5 text-[48px] font-bold text-[#1a1a1a] select-none leading-none pointer-events-none">
+              <span className="absolute top-4 right-6 text-[64px] font-bold text-[#161616] select-none leading-none pointer-events-none">
                 {card.num}
               </span>
 
-              <div className="relative z-10 pt-10">
-                <h3 className="text-[18px] font-semibold text-[#F5F5F5] mb-3">
+              <div className="relative z-10">
+                <h3 className="text-[18px] font-semibold text-[#F5F5F5] mb-3 leading-snug">
                   {card.title}
                 </h3>
                 <p className="text-[15px] text-[#666] leading-[1.7]">{card.body}</p>

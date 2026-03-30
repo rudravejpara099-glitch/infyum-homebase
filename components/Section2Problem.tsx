@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { PROBLEM } from "@/content/copy";
 import { fadeUp, staggerContainer, slideInFromRight } from "@/lib/animations";
@@ -24,23 +23,34 @@ export default function Section2Problem() {
         {PROBLEM.sectionNum}
       </span>
 
-      <div className="max-w-[1312px] mx-auto grid md:grid-cols-[40%_60%] gap-16 items-start">
-        {/* Left: headline */}
-        <motion.h2
-          variants={fadeUp}
+      <div className="max-w-[1312px] mx-auto grid md:grid-cols-[42%_58%] gap-16 items-start">
+        {/* Left: eyebrow + headline */}
+        <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-[32px] md:text-[44px] font-bold text-[#F5F5F5] leading-[1.15] tracking-[-0.03em]"
+          variants={staggerContainer}
+          className="flex flex-col gap-5"
         >
-          {PROBLEM.headline}
-        </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="text-[11px] font-medium tracking-[2px] text-[#2B7FFF]"
+          >
+            {PROBLEM.eyebrow}
+          </motion.p>
+          <motion.h2
+            variants={fadeUp}
+            className="text-[32px] md:text-[44px] font-bold text-[#F5F5F5] leading-[1.15] tracking-[-0.03em]"
+          >
+            {PROBLEM.headline}
+          </motion.h2>
+        </motion.div>
 
         {/* Right: body */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-5"
         >
           {PROBLEM.paragraphs.map((p, i) => (
             <motion.p
@@ -53,7 +63,7 @@ export default function Section2Problem() {
           ))}
           <motion.p
             variants={slideInFromRight}
-            className="text-[16px] text-[#2B7FFF] leading-[1.85] italic"
+            className="text-[16px] text-[#2B7FFF] leading-[1.85] italic mt-2"
           >
             {PROBLEM.accentLine}
           </motion.p>

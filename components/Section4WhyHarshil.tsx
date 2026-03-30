@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { WHY_HARSHIL } from "@/content/copy";
-import { fadeUp, staggerContainer, slideInFromRight } from "@/lib/animations";
+import { fadeUp, staggerContainer } from "@/lib/animations";
 
 export default function Section4WhyHarshil() {
   const ref = useRef(null);
@@ -36,78 +36,82 @@ export default function Section4WhyHarshil() {
           variants={fadeUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-[32px] md:text-[52px] font-bold text-[#F5F5F5] leading-[1.1] tracking-[-0.03em] max-w-[780px] mb-16"
+          className="text-[32px] md:text-[52px] font-bold text-[#F5F5F5] leading-[1.1] tracking-[-0.03em] max-w-[780px] mb-14"
         >
           {WHY_HARSHIL.headline}
         </motion.h2>
 
-        <div className="grid md:grid-cols-[55%_45%] gap-16 items-start">
-          {/* Left: body + pull quote */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            className="flex flex-col gap-6"
-          >
-            {WHY_HARSHIL.body.map((p, i) => (
-              <motion.p
-                key={i}
-                variants={fadeUp}
-                className="text-[16px] text-[#666] leading-[1.85]"
-              >
-                {p}
-              </motion.p>
-            ))}
-
-            {/* Pull quote */}
-            <motion.blockquote
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="max-w-[760px] flex flex-col gap-6"
+        >
+          {/* Body opener */}
+          {WHY_HARSHIL.bodyOpener.map((p, i) => (
+            <motion.p
+              key={i}
               variants={fadeUp}
-              className="mt-4 pl-5 border-l-2 border-[#2B7FFF]"
+              className="text-[16px] text-[#666] leading-[1.85]"
             >
-              <p className="text-[22px] md:text-[24px] text-[#F5F5F5] italic leading-[1.45] font-normal">
-                &ldquo;{WHY_HARSHIL.pullQuote}&rdquo;
+              {p}
+            </motion.p>
+          ))}
+
+          {/* List items — stacked lines style, not bullets */}
+          <motion.div variants={fadeUp} className="flex flex-col gap-2 pl-0">
+            {WHY_HARSHIL.listItems.map((item, i) => (
+              <p
+                key={i}
+                className="text-[16px] text-[#999] leading-[1.85]"
+              >
+                {item}
               </p>
-            </motion.blockquote>
+            ))}
           </motion.div>
 
-          {/* Right: headshot placeholder */}
-          <motion.div
-            variants={slideInFromRight}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            className="flex justify-center md:justify-end"
+          {/* Transition */}
+          <motion.p
+            variants={fadeUp}
+            className="text-[16px] font-semibold text-[#F5F5F5] leading-[1.85]"
           >
-            {/*
-              ╔═══════════════════════════════════════════╗
-              ║  DROP HARSHIL'S HEADSHOT IMAGE HERE       ║
-              ║  Replace this div with:                   ║
-              ║  <Image src="/harshil.jpg"                ║
-              ║    alt="Harshil Bhadani"                  ║
-              ║    width={480} height={480}               ║
-              ║    className="rounded-2xl object-cover"/> ║
-              ║  Recommended: square crop, min 960×960px  ║
-              ╚═══════════════════════════════════════════╝
-            */}
-            <div
-              className="w-full max-w-[480px] aspect-square rounded-2xl flex items-center justify-center"
-              style={{
-                background: "#111",
-                border: "1px solid rgba(43,127,255,0.15)",
-                boxShadow: "0 0 80px rgba(43,127,255,0.15)",
-              }}
-            >
-              <div className="text-center px-8">
-                <p className="text-[13px] text-[#333] leading-relaxed font-mono">
-                  [ HARSHIL BHADANI ]<br />
-                  <span className="text-[11px] text-[#2a2a2a]">
-                    Drop headshot image here.<br />
-                    Square crop · min 960×960px
-                  </span>
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+            {WHY_HARSHIL.transition}
+          </motion.p>
+
+          {/* Deep body */}
+          <motion.p
+            variants={fadeUp}
+            className="text-[16px] text-[#666] leading-[1.85]"
+          >
+            {WHY_HARSHIL.deepBody}
+          </motion.p>
+
+          {/* Follow up */}
+          <motion.p
+            variants={fadeUp}
+            className="text-[16px] text-[#666] leading-[1.85]"
+          >
+            {WHY_HARSHIL.followUp}
+          </motion.p>
+
+          {/* Closing */}
+          <motion.p
+            variants={fadeUp}
+            className="text-[16px] text-[#666] leading-[1.85]"
+          >
+            {WHY_HARSHIL.closing}
+          </motion.p>
+
+          {/* Pull quote */}
+          <motion.blockquote
+            variants={fadeUp}
+            className="mt-4 pl-6 border-l-2 border-[#2B7FFF]"
+          >
+            <p className="text-[22px] md:text-[26px] text-[#F5F5F5] italic leading-[1.45] font-normal">
+              &ldquo;{WHY_HARSHIL.pullQuote}&rdquo;
+            </p>
+          </motion.blockquote>
+        </motion.div>
       </div>
     </section>
   );

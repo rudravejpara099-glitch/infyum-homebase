@@ -8,51 +8,58 @@ export const NAV = {
 
 export const HERO = {
   eyebrow: "FREE CONVERSION AUDIT",
-  headlineLine1: "Your Funnel Is Costing You",
-  headlineLine2: "Calls You Already Earned",
+  headline: "Your Funnel Is Costing You Calls You Already Earned",
   subheadline:
-    "Most high-ticket coaches, consultants, and offer owners lose qualified calls before they ever get a reply. Not because their offer is weak — but because their funnel doesn't earn belief fast enough.",
+    "If your funnel feels weak, unclear, or underbuilt, serious buyers start doubting the offer before they fully feel its value. Harshil Bhadani helps high-ticket coaches, consultants, mentors, and digital educators spot what is hurting trust, weakening conversions, and making booked calls harder than they should be.",
   ctaPrimary: "Book Your Free Conversion Audit",
   ctaSecondary: "See What May Be Costing You Calls",
   micro: "Led by Harshil Bhadani · Backed by INFYUM's full execution team",
+  photoPlaceholder:
+    "[ DROP HARSHIL'S PHOTO HERE — square crop, min 800x800px, professional quality ]",
 } as const;
 
 export const PROBLEM = {
   sectionNum: "02",
+  eyebrow: "THE REAL PROBLEM",
   headline:
     "Most High-Ticket Brands Don't Need More Traffic. They Need A Funnel Buyers Actually Trust.",
   paragraphs: [
-    "When a high-ticket offer underperforms, the instinct is always to do more — more ads, more content, more outreach. But the problem is rarely volume. It's trust architecture.",
-    "Buyers don't convert because they're confused — not just about the offer, but about whether this person and this page deserve their time and attention. That confusion happens fast, often before the first scroll.",
+    "This is where many good businesses get stuck.",
+    "They keep improving the offer. They keep posting. They keep spending on ads. They keep trying to drive more visibility... while the real issue stays right in front of them.",
+    "Because when someone lands on your funnel, they are not only judging what you sell. They are reacting to what the experience makes them feel.",
+    "If the page feels polished, clear, and premium, trust grows. If it feels average, messy, or underbuilt, hesitation starts.",
+    "And that hesitation is expensive.",
+    "It lowers perceived value. It softens intent. It slows down decisions. It quietly turns strong traffic into missed opportunities.",
   ],
   accentLine:
-    "The solution isn't a redesign. It's a strategic conversion audit — built to find exactly where belief breaks down.",
+    "A weak funnel does not always look broken. Sometimes it just makes a strong offer feel easier to ignore.",
 } as const;
 
 export const COSTS = {
+  sectionNum: "03",
   eyebrow: "THE COST OF INACTION",
   headline: "What A Weak Funnel Is Actually Costing You",
   subheadline: "Not just aesthetics. Actual momentum.",
   cards: [
     {
       num: "01",
-      title: "Qualified leads bounce silently",
-      body: "They arrived ready. Your funnel didn't earn the next click. They left without ever replying.",
+      title: "Clicks without conviction",
+      body: "People land, scroll, and leave because the page never builds enough confidence to make the next step feel worth taking.",
     },
     {
       num: "02",
-      title: "Your offer gets undersold",
-      body: "The price feels unjustified. Not because the value isn't there — but because the page didn't build it.",
+      title: "Premium offer, average perception",
+      body: "When the service feels high-value, but the funnel feels mid-level, credibility drops fast.",
     },
     {
       num: "03",
-      title: "Ad spend compounds the problem",
-      body: "More traffic into a leaking funnel accelerates loss, not growth. Every campaign amplifies the gap.",
+      title: "More leads, less intent",
+      body: "Weak funnels attract attention without properly shaping who is actually ready to buy.",
     },
     {
       num: "04",
-      title: "You optimize the wrong variable",
-      body: "Teams chase copy tweaks and button colors while the real issue — funnel trust — remains untouched.",
+      title: "Ad spend carrying too much weight",
+      body: "If the page is not doing its job, every click has to work harder than it should.",
     },
   ],
   closingLine:
@@ -63,39 +70,56 @@ export const WHY_HARSHIL = {
   sectionNum: "04",
   eyebrow: "THE DIAGNOSTIC LENS",
   headline: "Why Harshil Finds The Problem Before Your Analytics Do",
-  body: [
-    "Analytics tell you what happened. They don't tell you why a prospect read your page, felt uncertain, and quietly left.",
-    "Harshil's approach starts with a different question: where does this funnel stop feeling credible? That's not a data question — it's a psychology question.",
+  bodyOpener: [
+    'Most people look at a funnel and ask, "Does it look good enough?"',
+    "Harshil looks for something else.",
   ],
+  listItems: [
+    "He looks at where trust drops.",
+    "Where belief gets weaker.",
+    "Where the page starts underselling the offer.",
+    "Where the buyer journey loses momentum before the sale ever has a real chance to happen.",
+  ],
+  transition: "That is the difference.",
+  deepBody:
+    "Because high-ticket buyers do not respond only to features, promises, or design polish. They respond to the total experience... how clearly the value is presented, how credible the brand feels, how naturally the page guides them, and how safe the next step feels to take.",
+  followUp:
+    "That reaction happens fast. Before the call. Before the DM. Before the form fill.",
+  closing:
+    "And when that experience feels weak, even a strong offer can start underperforming for reasons most businesses do not immediately catch.",
   pullQuote: "More traffic will not fix a page that fails to build belief.",
-  headshotNote: "HARSHIL BHADANI — Drop headshot image here (square crop recommended)",
 } as const;
 
 export const WHAT_GETS_FIXED = {
+  sectionNum: "05",
   eyebrow: "DEPTH OF THE WORK",
   headline: "What Gets Fixed Goes Deeper Than Design",
   intro:
-    "A conversion audit isn't a design review. It's a strategic examination of every layer that either builds or breaks buyer conviction.",
+    'This is not about making the page "look nicer" and hoping that improves conversions.',
+  body:
+    "When Harshil Bhadani reviews a funnel, the focus is deeper than that. The goal is to understand what is weakening trust, lowering perceived value, creating friction, and slowing serious buyers down.",
+  execution: "Then INFYUM helps execute the fix properly.",
+  listLabel: "What gets improved inside the funnel",
   rows: [
     {
-      label: "Messaging clarity",
-      desc: "Whether the offer's core promise lands within 8 seconds of arriving on the page",
+      label: "Clarity",
+      desc: "so the right person instantly understands what you do",
     },
     {
-      label: "Trust sequencing",
-      desc: "The order in which proof, authority, and specificity are introduced — and whether it mirrors how real buyers decide",
+      label: "Perception",
+      desc: "so the brand feels aligned with the level of the offer",
     },
     {
-      label: "Friction points",
-      desc: "Micro-moments where language gets vague, CTAs feel premature, or the page asks for commitment before earning it",
+      label: "Structure",
+      desc: "so the page leads buyers instead of confusing them",
     },
     {
-      label: "Objection coverage",
-      desc: "Which hesitations are pre-answered in the copy and which are left sitting in the prospect's head unresolved",
+      label: "Flow",
+      desc: "so the next step feels easier and more natural to take",
     },
     {
-      label: "Structural conversion logic",
-      desc: "Whether the full page flows like a buying journey or reads like a brochure",
+      label: "Conversion-readiness",
+      desc: "so the funnel supports booked calls instead of weakening them",
     },
   ],
   closingLine:
@@ -103,41 +127,59 @@ export const WHAT_GETS_FIXED = {
 } as const;
 
 export const RIGHT_FIT = {
+  sectionNum: "06",
   eyebrow: "WHO THIS IS FOR",
   headline:
     "The Clients Who Get The Most Out Of This Already Know Something Is Off",
-  body: "This isn't for brands who are just getting started. It's for operators who have real traction, a real offer, and a real sense that their funnel isn't keeping pace with their credibility.",
+  subheadline: "The offer is strong. The business is real. The funnel still feels behind.",
+  opener: "That is usually the moment everything becomes clear.",
+  body:
+    "It is no longer just about design. It is no longer just about wanting a cleaner page. The real issue is that the experience around the offer is no longer matching the level of the business behind it.",
   stateItems: [
     { left: "the offer", right: "has matured", highlight: false },
     { left: "the expertise", right: "is proven", highlight: false },
     { left: "the traffic", right: "is coming in", highlight: false },
     { left: "but the funnel", right: "still feels one level behind", highlight: true },
   ],
-  callout:
-    "If you've been telling yourself the funnel just needs more time — and deep down you know it's not a time problem — this audit is designed for exactly that moment.",
+  consequence:
+    "And when that happens, trust drops earlier, buyer confidence softens faster, and booked calls become harder than they should be.",
+  rightFitBox:
+    "This is for high-ticket coaches, consultants, mentors, and digital educators who know they have built something valuable... but also know the way it shows up online is still holding it back.",
 } as const;
 
 export const AUDIT = {
   sectionNum: "07",
   eyebrow: "THE FREE AUDIT",
   headline: "What The Free Conversion Audit Actually Looks At",
-  body: "In a focused 30-minute session, we walk through your funnel using a structured lens across five conversion dimensions:",
-  lenses: ["Messaging", "Trust flow", "Friction", "Objections", "Conversion logic"],
+  subheadline: "Clearer than guesswork. More useful than generic feedback.",
+  body: "Harshil Bhadani reviews the funnel through the lens that actually affects performance:",
+  lenses: [
+    "message clarity",
+    "trust signals",
+    "premium perception",
+    "buyer flow",
+    "action readiness",
+  ],
   checklistTitle: "Inside the audit, we help you uncover",
   checkItems: [
-    "Where your funnel loses trust and when",
-    "Which objections are going unanswered",
-    "What the page is asking for before it's earned",
-    "One high-leverage change to test first",
+    "where trust may be dropping too early",
+    "where the page may be underselling the offer",
+    "where friction may be slowing serious buyers down",
+    "where stronger structure could improve booked-call potential",
   ],
-  ctaCardSupport: "30-minute session · No obligation · Led by Harshil Bhadani",
-  ctaCardBonus:
-    "You'll leave with a clear picture of where your funnel is losing calls — and what to fix first.",
+  ctaCardText:
+    "If the funnel is stronger than expected, great. If it is weaker than it should be, you will know exactly where the leak starts.",
 } as const;
 
 export const FINAL_CTA = {
+  sectionNum: "08",
   headline: "Before You Push More Traffic, Make Sure The Funnel Deserves It",
-  body: "Every dollar you spend on traffic runs through your funnel first. A weak funnel doesn't just underperform — it compounds every inefficiency upstream.",
+  subheadline: "Strong offers should feel strong the moment the buyer lands.",
+  bodyParagraphs: [
+    "By the time someone reaches your page, you have already done the hard part. You built the offer. You built the expertise. You created visibility. You earned the click.",
+    "So if the funnel still feels average, unclear, or underbuilt, it does more than create a weak impression. It lowers confidence, softens perceived value, and makes serious buyers less ready to act.",
+    "A stronger funnel helps your brand feel more established, your offer land more clearly, and your traffic turn into more qualified conversations.",
+  ],
   cta: "Book Your Free Conversion Audit",
   micro:
     "Led by Harshil Bhadani · Built with INFYUM · Designed to help strong offers stop underperforming online.",
@@ -146,13 +188,15 @@ export const FINAL_CTA = {
 export const MODAL = {
   headline: "Book Your Free Conversion Audit",
   subheadline:
-    "Tell us a bit about your business and we'll reach out to schedule your session.",
-  fields: [
-    { label: "Full Name", placeholder: "Your name", type: "text", name: "name" },
-    { label: "Email Address", placeholder: "your@email.com", type: "email", name: "email" },
-    { label: "Business Type", placeholder: "Coaching / Consulting / Agency / Other", type: "text", name: "businessType" },
-    { label: "What feels off about your funnel? (optional)", placeholder: "Describe in a sentence or two...", type: "textarea", name: "message" },
+    "Tell us a little about your business. Harshil will review your funnel and come back with what he finds.",
+  businessTypeOptions: [
+    "High-ticket coach",
+    "Consultant",
+    "Mentor or educator",
+    "Digital course creator",
+    "Other",
   ],
   submit: "Book Your Free Conversion Audit",
-  disclaimer: "No spam. No obligation. We respect your time and inbox.",
+  disclaimer:
+    "No pitch. No sales call pressure. Just a real look at what may be holding your funnel back.",
 } as const;

@@ -13,16 +13,18 @@ interface LeadCaptureModalProps {
 }
 
 export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalProps) {
-  const firstInputRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
-      setTimeout(() => firstInputRef.current?.focus(), 100);
+      setTimeout(() => nameRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -32,6 +34,9 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose]);
+
+  const inputClass =
+    "w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-[14px] text-[#F5F5F5] placeholder:text-[#333] outline-none transition-all focus:border-[#2B7FFF] focus:shadow-[0_0_0_3px_rgba(43,127,255,0.15)]";
 
   return (
     <AnimatePresence>
@@ -43,7 +48,9 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
           exit="exit"
           className="fixed inset-0 z-50 flex items-center justify-center px-4"
           style={{ backgroundColor: "rgba(0,0,0,0.85)", backdropFilter: "blur(6px)" }}
-          onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
         >
           <motion.div
             variants={modalCard}
@@ -73,40 +80,82 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
               {MODAL.subheadline}
             </p>
 
-            {/* Fields */}
+            {/* Form */}
             <form
-              onSubmit={(e) => { e.preventDefault(); onClose(); }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                onClose();
+              }}
               className="flex flex-col gap-4"
             >
-              {MODAL.fields.map((field, i) => (
-                <div key={field.name} className="flex flex-col gap-1.5">
-                  <label
-                    htmlFor={field.name}
-                    className="text-[13px] font-medium text-[#777]"
-                  >
-                    {field.label}
-                  </label>
-                  {field.type === "textarea" ? (
-                    <textarea
-                      id={field.name}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      rows={3}
-                      className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-[14px] text-[#F5F5F5] placeholder:text-[#333] outline-none resize-none transition-all focus:border-[#2B7FFF] focus:shadow-[0_0_0_3px_rgba(43,127,255,0.15)]"
-                    />
-                  ) : (
-                    <input
-                      ref={i === 0 ? firstInputRef : undefined}
-                      id={field.name}
-                      name={field.name}
-                      type={field.type}
-                      placeholder={field.placeholder}
-                      required={field.name !== ("message" as string)}
-                      className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl px-4 py-3 text-[14px] text-[#F5F5F5] placeholder:text-[#333] outline-none transition-all focus:border-[#2B7FFF] focus:shadow-[0_0_0_3px_rgba(43,127,255,0.15)]"
-                    />
-                  )}
-                </div>
-              ))}
+              {/* Name */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="name" className="text-[13px] font-medium text-[#777]">
+                  Name
+                </label>
+                <input
+                  ref={nameRef}
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  required
+                  className={inputClass}
+                />
+              </div>
+
+              {/* Email */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="email" className="text-[13px] font-medium text-[#777]">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  required
+                  className={inputClass}
+                />
+              </div>
+
+              {/* Business Type — select */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="businessType" className="text-[13px] font-medium text-[#777]">
+                  Business Type
+                </label>
+                <select
+                  id="businessType"
+                  name="businessType"
+                  required
+                  defaultValue=""
+                  className={`${inputClass} appearance-none`}
+                  style={{ background: "#0A0A0A" }}
+                >
+                  <option value="" disabled style={{ color: "#333" }}>
+                    Select your business type
+                  </option>
+                  {MODAL.businessTypeOptions.map((opt) => (
+                    <option key={opt} value={opt} style={{ color: "#F5F5F5", background: "#111" }}>
+                      {opt}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Message */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="message" className="text-[13px] font-medium text-[#777]">
+                  Message <span className="text-[#444]">(optional)</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="What feels off about your funnel? (optional)"
+                  rows={3}
+                  className={`${inputClass} resize-none`}
+                />
+              </div>
 
               <CtaButton
                 label={MODAL.submit}
