@@ -20,57 +20,70 @@ export default function Section3Costs() {
           transition={{ duration: 0.7 }}
           className="mb-16"
         >
+          <p
+            className="text-xs font-semibold tracking-[0.16em] uppercase mb-5"
+            style={{ color: "var(--color-brand-primary)" }}
+          >
+            The cost of inaction
+          </p>
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl mb-4"
+            className="text-3xl md:text-5xl lg:text-[3.25rem] mb-4 max-w-3xl"
             style={{
               fontFamily: "var(--font-display)",
               color: "var(--color-text-primary)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.01em",
+              lineHeight: 1.08,
+              letterSpacing: "-0.02em",
             }}
           >
             {costs.headline}
           </h2>
-          <p
-            className="text-lg"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+          <p className="text-base" style={{ color: "var(--color-text-muted)" }}>
             {costs.subheadline}
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px mb-20"
+          style={{
+            background: "var(--color-border-subtle)",
+            borderRadius: "1rem",
+            overflow: "hidden",
+          }}
+        >
           {costs.cards.map((card, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 32 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="rounded-2xl p-8"
-              style={{
-                backgroundColor: "var(--color-bg-surface)",
-                border: "1px solid var(--color-border-subtle)",
-              }}
+              transition={{ duration: 0.55, delay: i * 0.09 }}
+              className="p-8 md:p-10 transition-colors duration-300"
+              style={{ backgroundColor: "var(--color-bg-surface)" }}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.backgroundColor =
+                  "var(--color-bg-elevated)")
+              }
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.backgroundColor =
+                  "var(--color-bg-surface)")
+              }
             >
-              <div
-                className="text-xs font-semibold tracking-widest uppercase mb-4"
-                style={{
-                  color: "var(--color-brand-primary)",
-                  letterSpacing: "0.12em",
-                }}
-              >
-                ✦
+              <div className="mb-5">
+                <span
+                  className="text-xs font-bold tracking-[0.2em] uppercase"
+                  style={{ color: "var(--color-brand-primary)" }}
+                >
+                  0{i + 1}
+                </span>
               </div>
               <h3
-                className="text-xl font-semibold mb-3"
+                className="text-lg font-semibold mb-3 leading-snug"
                 style={{ color: "var(--color-text-primary)" }}
               >
                 {card.title}
               </h3>
               <p
-                className="text-base leading-relaxed"
+                className="text-sm leading-[1.75]"
                 style={{ color: "var(--color-text-secondary)" }}
               >
                 {card.body}
@@ -85,14 +98,15 @@ export default function Section3Costs() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center"
+          className="text-center max-w-3xl mx-auto"
         >
           <p
-            className="text-2xl md:text-3xl lg:text-4xl leading-snug max-w-3xl mx-auto"
+            className="text-2xl md:text-3xl lg:text-4xl"
             style={{
               fontFamily: "var(--font-display)",
               color: "var(--color-text-primary)",
-              lineHeight: 1.25,
+              lineHeight: 1.2,
+              letterSpacing: "-0.01em",
             }}
           >
             {costs.bottomLine}
